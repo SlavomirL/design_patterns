@@ -15,41 +15,32 @@ package sec03.lec16_exercise;
 //}
 //Please observe the same placement of curly braces and use two-space indentation.
 
-class CodeBuilder
-{
-    private String className;
-    private String fieldName;
-    private String fieldType;
+import java.util.ArrayList;
+import java.util.List;
 
-    public CodeBuilder(String className)
-    {
+class CodeBuilder {
+    private String className;
+    private List<String> fields = new ArrayList<>();
+
+    public CodeBuilder(String className) {
         this.className = className;
     }
 
-    public CodeBuilder addField(String name, String type)
-    {
-        fieldName = name;
-        fieldType = type;
+    public CodeBuilder addField(String name, String type) {
+        fields.add("  public " + type + " " + name + ";\n");
         return this;
     }
 
     @Override
-    public String toString()
-    {
+    public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("public class %s\n{\n");
-//        for (Cod)
+        sb.append(String.format("public class %s\n{\n", this.className));
+        for (int i = 0; i < fields.size(); i++) {
+            sb.append(fields.get(i));
+        }
+        sb.append("}");
 
-        return "public class " +
-                className +
-                "\n" +
-                "{\n" +
-                "public " + fieldType + " " + fieldName +
-                ";\n" +
-                "public " + fieldType + " " + fieldName +
-                ";\n" +
-                "}";
-
+        return sb.toString();
     }
 }
 
