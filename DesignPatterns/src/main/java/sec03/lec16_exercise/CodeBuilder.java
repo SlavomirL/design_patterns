@@ -1,22 +1,23 @@
 package sec03.lec16_exercise;
 
-//You are asked to implement the Builder design pattern for rendering simple chunks of code.
+// You are asked to implement the Builder design pattern for rendering simple chunks of code.
 //
-//Sample use of the builder you are asked to create:
+// Sample use of the builder you are asked to create:
 //
-//CodeBuilder cb = new CodeBuilder("Person").addField("name", "String").addField("age", "int");
-//System.out.println(cb);
-//The expected output of the above code is:
+// CodeBuilder cb = new CodeBuilder("Person").addField("name", "String").addField("age", "int");
+// System.out.println(cb);
+// The expected output of the above code is:
 //
-//public class Person
-//{
+// public class Person
+// {
 //    public String name;
 //    public int age;
-//}
-//Please observe the same placement of curly braces and use two-space indentation.
+// }
+// Please observe the same placement of curly braces and use two-space indentation.
 
 import java.util.ArrayList;
 import java.util.List;
+<<<<<<< HEAD
 
 class CodeBuilder {
     private String className;
@@ -41,14 +42,41 @@ class CodeBuilder {
         sb.append("}");
 
         return sb.toString();
+=======
+
+class CodeBuilder {
+  private String className;
+  private List<String> fields = new ArrayList<>();
+
+  public CodeBuilder(String className) {
+    this.className = className;
+  }
+
+  public CodeBuilder addField(String name, String type) {
+    fields.add("  public " + type + " " + name + ";");
+    return this;
+  }
+
+  @Override
+  public String toString() {
+    StringBuilder sb = new StringBuilder();
+    sb
+            .append(String.format("public class %s", className))
+            .append("\n{\n");
+
+    for (String f : fields) {
+      sb.append(f);
+      sb.append("\n");
+>>>>>>> 09df7609db358c070fb02367e91d2054b6e84ecc
     }
+    sb.append("}");
+    return sb.toString();
+  }
 }
 
 class Demo {
-    public static void main(String[] args) {
-        CodeBuilder cb = new CodeBuilder("Person")
-                .addField("name", "String")
-                .addField("age", "int");
-        System.out.println(cb);
-    }
+  public static void main(String[] args) {
+    CodeBuilder cb = new CodeBuilder("Car").addField("brand", "String").addField("price", "int");
+    System.out.println(cb);
+  }
 }
